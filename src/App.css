@@ -16,6 +16,7 @@
     height: calc(64px * 8);
     display: flex;
     flex-wrap: wrap;
+    border: 2px solid black;
 }
 
 .cell {
@@ -26,12 +27,31 @@
     align-items: center;
 }
 
+.cell img {
+    width: 48px;
+    height: 48px;
+    position: relative;
+}
+
 .cellCollor1 {
     background-color: brown;
 }
 
 .cellCollor2 {
-    background-color: antiquewhite;
+    background-color: #c1bbb2;
 }
 
+.selected {
+    background-color: rgb(99, 110, 211);
+}
 
+.available {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: rgb(99, 110, 211);
+}
+
+.attackable {
+    background-color: green;
+}
