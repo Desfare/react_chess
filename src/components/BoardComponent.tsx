@@ -12,10 +12,12 @@ interface BoardProps {
 const BoardComponent: FC<BoardProps> = ({board, setBoard}) => {
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
+    
     function click (cell: Cell) {
         /* if (!cell.figure) {
-            return 
-        } */
+                return 
+            } */
+
         if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
             selectedCell.moveFigure(cell);
             setSelectedCell(null);
@@ -51,7 +53,6 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard}) => {
                             cell={cell}
                             selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
                             click={click}
-
                        /> 
                     )}
                 </React.Fragment>
