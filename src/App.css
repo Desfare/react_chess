@@ -33,11 +33,11 @@
     position: relative;
 }
 
-.cellCollor1 {
+.white {
     background-color: brown;
 }
 
-.cellCollor2 {
+.black {
     background-color: #c1bbb2;
 }
 
@@ -54,4 +54,16 @@
 
 .attackable {
     background-color: green;
+}
+
+.lost {
+    height: calc(50vh - 60px);
+    padding: 30px;
+    margin-left: 50px;
+    background-color: burlywood;
+}
+
+.miniLogo {
+    width: 20px;
+    height: 20px;
 }
