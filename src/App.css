@@ -31,6 +31,7 @@
     width: 48px;
     height: 48px;
     position: relative;
+    z-index: 1;
 }
 
 .white {
@@ -57,13 +58,42 @@
 }
 
 .lost {
-    height: calc(50vh - 60px);
+    height: 25vh;
     padding: 30px;
     margin-left: 50px;
     background-color: burlywood;
+    position: relative;
+    width: calc(20vw - 110px)
+}
+
+.lost h3 {
+    position: relative;
+    display: flex;
+}
+
+.lost div {
+    display: inline-flex;
+    border: 1px solid black;
+    flex-wrap: wrap;
+    width: auto;
+    height: auto;
+    margin: 2px;
+    padding: 2px;
 }
 
 .miniLogo {
     width: 20px;
     height: 20px;
 }
+
+.timer {
+    margin-right: 5%;
+}
+
+.textUI {
+    margin-top: 15%;
+    margin-bottom: 15%;
+}
+
+
+

@@ -1,6 +1,8 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
 import { Colors } from '../models/Colors';
 import { Player } from '../models/Player';
+import ButtonUI from './ButtonUI/ButtonUI';
+import LoseModal from './LoseModal/LoseModal';
 
 interface TimerProps {
     currentPlayer: Player | null;
@@ -8,9 +10,10 @@ interface TimerProps {
 }
 
 const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
-    const [blackTime, setBlackTime] = useState(300)
-    const [whiteTime, setWhiteTime] = useState(300)
+    const [blackTime, setBlackTime] = useState(1000)
+    const [whiteTime, setWhiteTime] = useState(1000)
     const timer = useRef<null | ReturnType<typeof setInterval>>(null)
+    const [modal, setModal] = useState(false)
    
     useEffect(() => {
         startTimer()
@@ -25,27 +28,42 @@ const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
     }
 
     function decrementBlackTimer() {
-        setBlackTime(prev => prev - 1)
+        setBlackTime(prev => {
+            if(prev === 0) {
+                setModal(true)
+                return prev = 0
+            } else return prev - 1
+        })
     }
 
     function decrementWhiteTimer() {
-        setWhiteTime(prev => prev - 1)
+        setWhiteTime(prev => {
+            if(prev === 0) {
+                setModal(true)
+                return prev = 0 
+            } else return prev - 1
+        })
     }
 
     const handleRestart = () => {
-        setWhiteTime(300)
-        setBlackTime(300)
+        setWhiteTime(1000)
+        setBlackTime(1000)
         restart()
     }
 
 
     return (
-        <div>
-           <div>
-                <button onClick={handleRestart}>Restart game</button>
+        <div className="timer">
+           <div onClick={handleRestart}>
+                <ButtonUI>Restart game</ButtonUI>
             </div> 
-            <h2>Black - {blackTime}</h2>
-            <h2>White - {whiteTime}</h2>
+            <h2 className="textUI">
+                Black - {blackTime === 0 ? <LoseModal handleRestart={handleRestart} visible={modal} setVisible={setModal}>Black was destroyed</LoseModal> : blackTime} sec
+            </h2>
+            <h2 className="textUI">
+                White - {whiteTime === 0 ? <LoseModal handleRestart={handleRestart} visible={modal} setVisible={setModal}>White was destroyed</LoseModal> : whiteTime} sec
+            </h2>
+            <h2 className="textUI">Now is {currentPlayer?.color} turn</h2>
         </div>
     );
 };
