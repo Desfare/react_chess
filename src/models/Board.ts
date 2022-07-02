@@ -1,7 +1,7 @@
 import { Cell } from "./Cell";
 import { Colors } from "./Colors";
 import { Bishop } from "./figures/Bishop";
-import { Figure } from "./figures/Figure";
+import { Figure, FigureNames } from "./figures/Figure";
 import { King } from "./figures/King";
 import { Knight } from "./figures/Knight";
 import { Pawn } from "./figures/Pawn";
@@ -15,6 +15,7 @@ export class Board {
     lostBlackFigures: Figure[] = [] 
     lostWhiteFigures: Figure[] = [] 
 
+
     public initCells() {
         for (let i = 0; i < 8; i++) {
             const row: Cell[] = []
@@ -27,6 +28,52 @@ export class Board {
             }
             this.cells.push(row);
         }
+    }
+
+    public castleableWhite(castleWhite: boolean) {
+        if (castleWhite === true) {
+            for (let i = 0; i < this.cells.length; i++) {
+                const row = this.cells[i]
+                for (let j = 0; j < row.length; j++) {
+                    const target = row[j];
+                    if ((target.figure instanceof King) && (target.board.getCell(6,7) === target) && (target.figure.color === Colors.WHITE)) {
+                        if((target.board.getCell(7,7).figure instanceof Rook) && (target.board.getCell(7,7).figure?.rookFirstStep === true)) {
+                            target.board.getCell(7,7).figure = null
+                            new Rook(Colors.WHITE, this.getCell(5, 7))    
+                        } 
+                    }
+                    if ((target.figure instanceof King) && (target.board.getCell(2,7) === target) && (target.figure.color === Colors.WHITE)) {
+                        if ((target.board.getCell(0,7).figure instanceof Rook) && (target.board.getCell(0,7).figure?.rookFirstStep === true)) {
+                            target.board.getCell(0,7).figure = null
+                            new Rook(Colors.WHITE, this.getCell(3, 7))
+                        }
+                    } 
+                }
+            }
+        }
+    }
+
+    public castleableBlack(castleBlack: boolean) {
+        if (castleBlack === true) {
+            for (let i = 0; i < this.cells.length; i++) {
+                const row = this.cells[i]
+                for (let j = 0; j < row.length; j++) {
+                    const target = row[j];
+                    if ((target.figure instanceof King) && (target.board.getCell(2,0) === target) && (target.figure.color === Colors.BLACK)) {
+                        if((target.board.getCell(0,0).figure instanceof Rook) && (target.board.getCell(0,0).figure?.rookFirstStep === true)){
+                            target.board.getCell(0,0).figure = null
+                            new Rook(Colors.BLACK, this.getCell(3, 0))     
+                        }
+                    } 
+                    if ((target.figure instanceof King) && (target.board.getCell(6,0) === target) && (target.figure.color === Colors.BLACK)) {
+                        if ((target.board.getCell(7,0).figure instanceof Rook) && (target.board.getCell(7,0).figure?.rookFirstStep === true)) {
+                            target.board.getCell(7,0).figure = null
+                            new Rook(Colors.BLACK, this.getCell(5, 0))
+                        }
+                    }
+                }
+            }
+        } 
     }
 
     public getCopyBoard(): Board {
@@ -49,6 +96,11 @@ export class Board {
 
     public getCell(x: number, y: number) {
         return this.cells[y][x]
+    }
+
+    public getCellName (x: number, y: number){
+        const nameArr = Array.from(this.cells)
+        console.log(nameArr);
     }
 
     private addPawns() {

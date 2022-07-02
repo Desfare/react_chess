@@ -63,7 +63,7 @@
     margin-left: 50px;
     background-color: burlywood;
     position: relative;
-    width: calc(20vw - 110px)
+    width: calc(10vw - 10px);
 }
 
 .lost h3 {
@@ -95,5 +95,22 @@
     margin-bottom: 15%;
 }
 
+.chess {
+    display: flex;
+    position: relative;
+}
+.numberColumn {
+    float: right;
+    display: grid;
+    align-content: space-around;
+    padding-left: 5px;
+}
 
+.letterColumn {
+    display: flex;
+    position: absolute;
+    top: 520px;
+    width: calc(64px * 8 + 4px);
+    justify-content: space-around;
+}
 

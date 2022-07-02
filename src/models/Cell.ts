@@ -1,6 +1,7 @@
 import { Board } from "./Board";
 import { Colors } from "./Colors";
 import { Figure } from "./figures/Figure";
+import { Rook } from "./figures/Rook";
 
 export class Cell {
     readonly x: number;
@@ -10,6 +11,7 @@ export class Cell {
     board: Board;
     available: boolean; // can figure move or not??
     id: number; // for react keys
+    adress: [] = []
 
     constructor(board: Board, x: number, y: number, color: Colors, figure: Figure | null) {
         this.x = x
@@ -70,6 +72,36 @@ export class Cell {
             if (!this.board.getCell(this.x + dx * i, this.y + dy * i).isEmpty()) return false
         }
         return true
+    }
+
+    isCastleableRight(target: Cell) {
+        if (this.y !== target.y) return false
+
+        const possibleArr = [5, 6]
+        if ((this.board.getCell(7, this.y).figure instanceof Rook) 
+        && (this.board.getCell(7, this.y).figure?.rookFirstStep === true)){
+            for (let x of possibleArr) {
+                if ((!this.board.getCell(x, this.y).isEmpty())) {
+                    return false
+                }
+            }
+            return true
+            } 
+        }
+
+    isCastleableLeft(target: Cell) {
+        if (this.y !== target.y) return false
+
+        const possibleArr = [1, 2, 3]
+        if((this.board.getCell(0, this.y).figure instanceof Rook) 
+        && (this.board.getCell(0, this.y).figure?.rookFirstStep === true)) {
+            for (let x of possibleArr) {
+                if ((!this.board.getCell(x, this.y).isEmpty())) {
+                    return false 
+                } 
+            }
+            return true
+        }
     }
 
     setFigure(figure: Figure) {

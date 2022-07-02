@@ -19,14 +19,18 @@ export class Figure {
     cell: Cell
     name: FigureNames;
     id: number;
+    kingFirstStep: boolean;
+    rookFirstStep: boolean
 
-    constructor(color: Colors, cell:Cell) {
+    constructor(color: Colors, cell: Cell) {
         this.color = color;
         this.cell = cell;
         this.cell.figure = this //deploy figure on cell as current object  circular dependence
         this.logo = null;
         this.name = FigureNames.FIGURE
         this.id = Math.random()
+        this.kingFirstStep = true
+        this.rookFirstStep = true
     }
 
     canMove(target: Cell) : boolean {

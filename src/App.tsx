@@ -23,6 +23,7 @@ const App = () => {
   function restart() {
     const newBoard = new Board();
     newBoard.initCells()
+    newBoard.getCellName(1,1)
     newBoard.addFigures()
     setBoard(newBoard)
     setCurrentPlayer(whitePlayer)
